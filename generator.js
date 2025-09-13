@@ -28,10 +28,12 @@ const config = {
   fontFamily: 'system-ui',
   fontSize: 16,
   profileImgPosition: 'left',
-  hamburgerPosition: 'right'
+  hamburgerPosition: 'right',
+  hamburgerColor: '#cccccc'
 };
 
 // DOM refs
+const hamburgerColorInput = document.getElementById('hamburger-color');
 const form = document.getElementById('nav-config-form');
 const previewFrame = document.getElementById('nav-preview');
 const outputHtml = document.getElementById('output-html');
@@ -123,6 +125,9 @@ form.addEventListener('input', e => {
     case 'font-size':
       config.fontSize = +e.target.value;
       break;
+    case 'hamburger-color':
+      config.hamburgerColor = e.target.value;
+      break;
     case 'profile-img-position':
       config.profileImgPosition = e.target.value;
       break;
@@ -162,6 +167,8 @@ async function generateNavCode() {
   // Apply config: replace profile image, links, alignment, colours, etc.
   let navHtml = baseHtml;
   let navCss = baseCss;
+  // Hamburger color (after navCss is initialized)
+  navCss += `\n.hamburger, .hamburger::before, .hamburger::after { background-color: ${config.hamburgerColor}; }`;
   // Build nav HTML with image/hamburger on user-selected sides
   const imgSize = config.profileImgSize === 'small' ? 32 : config.profileImgSize === 'large' ? 64 : 48;
   let leftHtml = '', rightHtml = '';
