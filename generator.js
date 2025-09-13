@@ -164,8 +164,10 @@ async function generateNavCode() {
   if (!config.hamburger) navCss += `\n.hamburger { display: none !important; }`;
   // Sticky
   if (config.sticky) navCss += `\n.nav-header { position: sticky; top: 0; }`;
-  // Breakpoint
-  navCss += `\n@media (max-width: ${config.breakpoint}px) { .nav-links { display: none; } .hamburger { display: block; } }`;
+  // Breakpoint (use user value for both mobile and desktop, no overlap)
+  const bp = config.breakpoint;
+  navCss += `\n@media (max-width: ${bp - 1}px) { .nav-links { display: none; } .hamburger { display: block; } }`;
+  navCss += `\n@media (min-width: ${bp}px) { .nav-links { display: flex; } .hamburger { display: none; } }`;
   // Colours
   navCss += `\n.nav-header { background: ${config.headerBg}; }`;
   navCss += `\n.nav-links a { color: ${config.linkColor}; }`;
