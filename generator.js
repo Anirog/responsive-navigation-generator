@@ -144,9 +144,17 @@ form.addEventListener('input', e => {
   } else {
     layoutWarning.style.display = 'none';
   }
-  updatePreview();
+  // Only update preview if not hamburger color (handled separately)
+  if (e.target.id !== 'hamburger-color') {
+    updatePreview();
+  }
 });
 
+// Use 'change' event for hamburger color picker for better performance
+hamburgerColorInput.addEventListener('change', e => {
+  config.hamburgerColor = e.target.value;
+  updatePreview();
+});
 // Profile image upload
 form.profileImgUpload = document.getElementById('profile-img-upload');
 form.profileImgUpload.addEventListener('change', e => {
