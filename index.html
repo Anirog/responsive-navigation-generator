@@ -11,6 +11,20 @@
     <h1>Responsive Navigation Generator</h1>
     <form id="nav-config-form" autocomplete="off">
       <fieldset>
+        <legend>Layout Options</legend>
+        <label for="profile-img-position">Profile image position:</label>
+        <select id="profile-img-position" name="profile-img-position">
+          <option value="left" selected>Left</option>
+          <option value="right">Right</option>
+        </select>
+        <label for="hamburger-position">Hamburger menu position:</label>
+        <select id="hamburger-position" name="hamburger-position">
+          <option value="right" selected>Right</option>
+          <option value="left">Left</option>
+        </select>
+        <div id="layout-warning" style="color:#b22222;display:none;font-size:0.95rem;margin-top:0.5rem;">Image and hamburger cannot be on the same side.</div>
+      </fieldset>
+      <fieldset>
         <legend>Profile Image</legend>
         <label for="profile-img-url">Image URL:</label>
         <input type="url" id="profile-img-url" name="profile-img-url" placeholder="https://...">
@@ -32,13 +46,6 @@
       </fieldset>
       <fieldset>
         <legend>Navigation Settings</legend>
-        <label for="nav-align">Alignment:</label>
-        <select id="nav-align" name="nav-align">
-          <option value="left">Left</option>
-          <option value="center">Center</option>
-          <option value="right">Right</option>
-          <option value="space-between">Space Between</option>
-        </select>
         <label for="hamburger-toggle">
           <input type="checkbox" id="hamburger-toggle" name="hamburger-toggle" checked>
           Enable hamburger menu for mobile

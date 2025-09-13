@@ -14,21 +14,21 @@ async function fetchBaseComponent() {
 const config = {
   profileImgUrl: '',
   profileImgAlt: '',
-  profileImgSize: 'small',
+  profileImgSize: 'medium',
   links: [
     { text: 'Home', url: '#' },
-    { text: 'About', url: '#' },
-    { text: 'Contact', url: '#' }
+    { text: 'About', url: '#' }
   ],
-  navAlign: 'left',
   hamburger: true,
   sticky: false,
   breakpoint: 768,
-  headerBg: '#202124',
-  linkColor: '#FFFFFF',
-  linkHover: '#CCCCCC',
+  headerBg: '#22223b',
+  linkColor: '#4a4e69',
+  linkHover: '#9a8c98',
   fontFamily: 'system-ui',
-  fontSize: 16
+  fontSize: 16,
+  profileImgPosition: 'left',
+  hamburgerPosition: 'right'
 };
 
 // DOM refs
@@ -41,6 +41,9 @@ const copyCssBtn = document.getElementById('copy-css-btn');
 const downloadBtn = document.getElementById('download-btn');
 const navLinksList = document.getElementById('nav-links-list');
 const addLinkBtn = document.getElementById('add-link-btn');
+const profileImgPositionSelect = document.getElementById('profile-img-position');
+const hamburgerPositionSelect = document.getElementById('hamburger-position');
+const layoutWarning = document.getElementById('layout-warning');
 
 // Render link inputs
 function renderLinks() {
@@ -96,9 +99,6 @@ form.addEventListener('input', e => {
     case 'profile-img-size':
       config.profileImgSize = e.target.value;
       break;
-    case 'nav-align':
-      config.navAlign = e.target.value;
-      break;
     case 'hamburger-toggle':
       config.hamburger = e.target.checked;
       break;
@@ -123,6 +123,21 @@ form.addEventListener('input', e => {
     case 'font-size':
       config.fontSize = +e.target.value;
       break;
+    case 'profile-img-position':
+      config.profileImgPosition = e.target.value;
+      break;
+    case 'hamburger-position':
+      config.hamburgerPosition = e.target.value;
+      break;
+  }
+  // Prevent both on same side
+  if (config.profileImgPosition === config.hamburgerPosition) {
+    layoutWarning.style.display = '';
+    // Force hamburger to opposite side
+    config.hamburgerPosition = config.profileImgPosition === 'left' ? 'right' : 'left';
+    hamburgerPositionSelect.value = config.hamburgerPosition;
+  } else {
+    layoutWarning.style.display = 'none';
   }
   updatePreview();
 });
@@ -147,34 +162,23 @@ async function generateNavCode() {
   // Apply config: replace profile image, links, alignment, colours, etc.
   let navHtml = baseHtml;
   let navCss = baseCss;
-  // Profile image (match base component's class name)
-    const imgSize = config.profileImgSize === 'small' ? 32 : config.profileImgSize === 'large' ? 64 : 48;
-    navHtml = navHtml.replace(/<img[^>]*class="profile-image"[^>]*>/,
-      `<img class="profile-image" src="${config.profileImgUrl}" alt="${config.profileImgAlt}" style="width:${imgSize}px;height:${imgSize}px;border-radius:50%;object-fit:cover;">`
-    );
-    // Remove base CSS .profile-image size
-    navCss = navCss.replace(/\.profile-image\s*\{[^}]*\}/, '');
-  // Links (replace <nav class="nav-links">...</nav> with custom links)
-  navHtml = navHtml.replace(
-    /<nav[^>]*class="nav-links"[^>]*>[\s\S]*?<\/nav>/,
-    `<nav class="nav-links">${config.links.map(l => `<a href="${l.url}">${l.text}</a>`).join('')}</nav>`
-  );
-  // Alignment
-  let justify;
-  switch (config.navAlign) {
-    case 'center':
-      justify = 'center';
-      break;
-    case 'right':
-      justify = 'flex-end';
-      break;
-    case 'space-between':
-      justify = 'space-between';
-      break;
-    default:
-      justify = 'flex-start';
+  // Build nav HTML with image/hamburger on user-selected sides
+  const imgSize = config.profileImgSize === 'small' ? 32 : config.profileImgSize === 'large' ? 64 : 48;
+  let leftHtml = '', rightHtml = '';
+  if (config.profileImgPosition === 'left') {
+    leftHtml += `<div class="profile-image-container"><a href="index.html"><img class="profile-image" src="${config.profileImgUrl}" alt="${config.profileImgAlt}" style="width:${imgSize}px;height:${imgSize}px;border-radius:50%;object-fit:cover;"></a></div>`;
+  } else {
+    rightHtml += `<div class="profile-image-container"><a href="index.html"><img class="profile-image" src="${config.profileImgUrl}" alt="${config.profileImgAlt}" style="width:${imgSize}px;height:${imgSize}px;border-radius:50%;object-fit:cover;"></a></div>`;
   }
-  navCss += `\n.header-container { justify-content: ${justify}; }`;
+  if (config.hamburgerPosition === 'left') {
+    leftHtml += `<div class="menu-container"><input type="checkbox" id="nav-toggle" class="nav-toggle" /><label for="nav-toggle" class="nav-toggle-label"><span class="hamburger"></span></label><nav class="nav-links">${config.links.map(l => `<a href="${l.url}">${l.text}</a>`).join('')}</nav></div>`;
+  } else {
+    rightHtml += `<div class="menu-container"><input type="checkbox" id="nav-toggle" class="nav-toggle" /><label for="nav-toggle" class="nav-toggle-label"><span class="hamburger"></span></label><nav class="nav-links">${config.links.map(l => `<a href="${l.url}">${l.text}</a>`).join('')}</nav></div>`;
+  }
+  navHtml = `<div class="header-container">${leftHtml}${rightHtml}</div>`;
+  // Always use space-between for alignment
+  navCss = navCss.replace(/\.profile-image\s*\{[^}]*\}/, '');
+  navCss += `\n.header-container { display: flex; align-items: center; justify-content: space-between; }`;
   // Hamburger
   if (!config.hamburger) navCss += `\n.hamburger { display: none !important; }`;
   // Sticky
