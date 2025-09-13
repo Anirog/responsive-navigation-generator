@@ -153,10 +153,9 @@ async function generateNavCode() {
     );
     // Remove base CSS .profile-image size
     navCss = navCss.replace(/\.profile-image\s*\{[^}]*\}/, '');
-  // Links (replace <nav class="nav-links">...</nav> with custom links)
-  navHtml = navHtml.replace(
-    /<nav[^>]*class="nav-links"[^>]*>[\s\S]*?<\/nav>/,
-    `<nav class="nav-links">${config.links.map(l => `<a href="${l.url}">${l.text}</a>`).join('')}</nav>`
+  // Links
+  navHtml = navHtml.replace(/<ul[^>]*class="nav-links"[^>]*>[\s\S]*?<\/ul>/,
+    `<ul class="nav-links">${config.links.map(l => `<li><a href="${l.url}">${l.text}</a></li>`).join('')}</ul>`
   );
   // Alignment
   navCss += `\n.nav-header { justify-content: ${config.navAlign === 'center' ? 'center' : config.navAlign === 'right' ? 'flex-end' : 'flex-start'}; }`;
