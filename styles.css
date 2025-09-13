@@ -1,0 +1,157 @@
+/* styles.css for Responsive Navigation Generator UI and preview */
+
+body {
+  font-family: system-ui, sans-serif;
+  background: #f8f9fa;
+  color: #22223b;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 2rem;
+}
+
+h1, h2, h3 {
+  color: #4a4e69;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+fieldset {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 1rem;
+  min-width: 220px;
+  flex: 1 1 220px;
+}
+
+label {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="url"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 0.4rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+input[type="color"] {
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+input[type="file"] {
+  margin-top: 0.2rem;
+  margin-bottom: 0.8rem;
+}
+
+button {
+  background: #4a4e69;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+}
+button:focus {
+  outline: 2px solid #9a8c98;
+}
+
+
+.preview-section {
+  margin-bottom: 2rem;
+}
+
+.preview-resize-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 240px;
+  margin: 0 auto 0.5rem auto;
+  background: #23232b;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  resize: none;
+}
+
+#nav-preview {
+  width: 100%;
+  min-width: 240px;
+  min-height: 120px;
+  height: 220px;
+  border: none;
+  background: #23232b;
+  display: block;
+  transition: width 0.2s;
+}
+
+.resize-handle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 12px;
+  height: 100%;
+  cursor: ew-resize;
+  background: linear-gradient(to left, #e0e0e0 60%, transparent 100%);
+  z-index: 2;
+  border-radius: 0 8px 8px 0;
+}
+
+.resize-handle:focus {
+  outline: 2px solid #9a8c98;
+}
+
+.preview-width-label {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.output-section {
+  margin-bottom: 2rem;
+}
+
+.output-code {
+  background: #f4f4f4;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.95rem;
+  background: none;
+  border: none;
+  margin: 0;
+}
+
+/* Accessibility: focus states */
+input:focus, select:focus {
+  outline: 2px solid #9a8c98;
+}

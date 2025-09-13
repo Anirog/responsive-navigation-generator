@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Navigation Generator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Responsive Navigation Generator</h1>
+    <form id="nav-config-form" autocomplete="off">
+      <fieldset>
+        <legend>Profile Image</legend>
+        <label for="profile-img-url">Image URL:</label>
+        <input type="url" id="profile-img-url" name="profile-img-url" placeholder="https://...">
+        <label for="profile-img-upload">Or upload:</label>
+        <input type="file" id="profile-img-upload" name="profile-img-upload" accept="image/*">
+        <label for="profile-img-alt">Alt text:</label>
+        <input type="text" id="profile-img-alt" name="profile-img-alt" placeholder="Profile alt text">
+        <label for="profile-img-size">Size:</label>
+        <select id="profile-img-size" name="profile-img-size">
+          <option value="small">Small</option>
+          <option value="medium" selected>Medium</option>
+          <option value="large">Large</option>
+        </select>
+      </fieldset>
+      <fieldset>
+        <legend>Navigation Links</legend>
+        <div id="nav-links-list"></div>
+        <button type="button" id="add-link-btn">Add Link</button>
+      </fieldset>
+      <fieldset>
+        <legend>Navigation Settings</legend>
+        <label for="nav-align">Alignment:</label>
+        <select id="nav-align" name="nav-align">
+          <option value="left">Left</option>
+          <option value="center">Center</option>
+          <option value="right">Right</option>
+        </select>
+        <label for="hamburger-toggle">
+          <input type="checkbox" id="hamburger-toggle" name="hamburger-toggle" checked>
+          Enable hamburger menu for mobile
+        </label>
+        <label for="sticky-toggle">
+          <input type="checkbox" id="sticky-toggle" name="sticky-toggle">
+          Sticky header
+        </label>
+        <label for="breakpoint">Responsive breakpoint (px):</label>
+        <input type="number" id="breakpoint" name="breakpoint" min="320" max="1920" value="768">
+      </fieldset>
+      <fieldset>
+        <legend>Colours</legend>
+        <label for="header-bg">Header background:</label>
+        <input type="color" id="header-bg" name="header-bg" value="#22223b">
+        <label for="link-color">Link text:</label>
+        <input type="color" id="link-color" name="link-color" value="#4a4e69">
+        <label for="link-hover-color">Link hover:</label>
+        <input type="color" id="link-hover-color" name="link-hover-color" value="#9a8c98">
+      </fieldset>
+      <fieldset>
+        <legend>Typography</legend>
+        <label for="font-family">Font family:</label>
+        <select id="font-family" name="font-family">
+          <option value="system-ui">System UI</option>
+          <option value="sans-serif">Sans-serif</option>
+          <option value="serif">Serif</option>
+          <option value="monospace">Monospace</option>
+        </select>
+        <label for="font-size">Font size (px):</label>
+        <input type="number" id="font-size" name="font-size" min="12" max="32" value="16">
+      </fieldset>
+    </form>
+    <section class="preview-section">
+      <h2>Live Preview</h2>
+      <div class="preview-resize-container">
+        <iframe id="nav-preview" title="Navigation Preview"></iframe>
+        <div class="resize-handle" tabindex="0" aria-label="Resize preview" title="Drag to resize preview"></div>
+      </div>
+      <div class="preview-width-label">Width: <span id="preview-width">100%</span></div>
+    </section>
+    <section class="output-section">
+      <h2>Export Navigation</h2>
+      <button id="copy-html-btn" type="button">Copy HTML</button>
+      <button id="copy-css-btn" type="button">Copy CSS</button>
+      <button id="download-btn" type="button">Download nav.html + nav.css</button>
+      <div class="output-code">
+        <h3>HTML</h3>
+        <pre id="output-html"></pre>
+        <h3>CSS</h3>
+        <pre id="output-css"></pre>
+      </div>
+    </section>
+  </main>
+  <script src="generator.js"></script>
+</body>
+</html>

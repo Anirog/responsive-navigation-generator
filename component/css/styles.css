@@ -1,0 +1,199 @@
+body {
+    background-color: #202124;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+a {
+    transition: all 150ms ease-in-out;
+}
+
+.header-container {
+    margin: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu-container {
+    margin-left: 16px;
+}
+
+.nav-links {
+    display: none;
+    gap: 32px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+/* Hide checkbox */
+
+.nav-toggle {
+    display: none;
+}
+
+/* Style for the hamburger icon */
+
+.nav-toggle-label {
+    cursor: pointer;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    position: relative;
+    z-index: 1001;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+    content: "";
+    background-color: #cccccc;
+    height: 2px;
+    width: 20px;
+    position: absolute;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.hamburger {
+    top: 9px;
+}
+
+.hamburger::before {
+    top: -6px;
+}
+
+.hamburger::after {
+    top: 6px;
+}
+
+/* Turn into X when active */
+
+.nav-toggle:checked+.nav-toggle-label .hamburger {
+    background-color: transparent;
+}
+
+.nav-toggle:checked+.nav-toggle-label .hamburger::before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.nav-toggle:checked+.nav-toggle-label .hamburger::after {
+    transform: rotate(-45deg);
+    top: 0;
+}
+
+/* Mobile nav full screen overlay */
+
+.nav-links {
+    display: none;
+}
+
+.nav-toggle:checked~.nav-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: #202124;
+    padding: 68px 0 0 16px;
+    gap: 22px;
+    z-index: 1000;
+}
+
+.nav-toggle:checked~.nav-links a {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.profile-image {
+    height: 30px;
+    width: 30px;
+}
+
+/* Menu Animation Start */
+
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animation when menu opens */
+
+.nav-toggle:checked~.nav-links a {
+    opacity: 0;
+    animation: fadeSlideIn 300ms ease forwards;
+}
+
+/* Add To This Line if Add New Links Start */
+
+.nav-toggle:checked~.nav-links a:nth-child(1) {
+    animation-delay: 100ms;
+}
+
+.nav-toggle:checked~.nav-links a:nth-child(2) {
+    animation-delay: 200ms;
+}
+
+.nav-toggle:checked~.nav-links a:nth-child(3) {
+    animation-delay: 300ms;
+}
+
+.nav-toggle:checked~.nav-links a:nth-child(4) {
+    animation-delay: 400ms;
+}
+
+.nav-toggle:checked~.nav-links a:nth-child(5) {
+    animation-delay: 500ms;
+}
+
+/* Add To This Line if add new links End */
+
+/* Menu Animation End */
+
+/* Tablet 768px and up  */
+
+@media (min-width: 48em) {
+    .menu-container i {
+        display: none;
+    }
+
+    .nav-toggle-label {
+        display: none;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        position: static;
+        height: auto;
+        background: none;
+        padding: 0;
+    }
+
+    .nav-links a {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .nav-links a:hover {
+        color: #cccccc;
+    }
+}
