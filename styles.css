@@ -91,7 +91,7 @@ button:focus {
   max-width: 100%;
   min-width: 240px;
   margin: 0 auto 0.5rem auto;
-  background: #23232b;
+  background: #ffffff;
   border-radius: 8px;
   border: 1px solid #e0e0e0;
   overflow: hidden;
@@ -104,7 +104,7 @@ button:focus {
   min-height: 120px;
   height: 220px;
   border: none;
-  background: #23232b;
+  background: #ffffff; /* Changed to a more consistent hex code */
   display: block;
   transition: width 0.2s;
 }
@@ -129,6 +129,7 @@ button:focus {
   font-size: 0.95rem;
   color: #666;
   margin-bottom: 0.5rem;
+  background: #ffffff; /* Set background to white */
 }
 
 .output-section {
