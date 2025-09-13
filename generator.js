@@ -175,6 +175,8 @@ async function generateNavCode() {
   // Apply config: replace profile image, links, alignment, colours, etc.
   let navHtml = baseHtml;
   let navCss = baseCss;
+  // Hide profile image when hamburger menu is open
+  navCss += `\n.nav-toggle:checked ~ .menu-container ~ .profile-image-container, .nav-toggle:checked ~ .profile-image-container { display: none !important; }`;
   // Hamburger color (after navCss is initialized)
   navCss += `\n.hamburger, .hamburger::before, .hamburger::after { background-color: ${config.hamburgerColor}; }`;
   // Build nav HTML with image/hamburger on user-selected sides
