@@ -97,16 +97,12 @@ a {
     left: 0;
     height: 100vh;
     width: 100%;
-    background-color: #202124;
     padding: 68px 0 0 16px;
     gap: 22px;
     z-index: 1000;
 }
 
 .nav-toggle:checked~.nav-links a {
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 600;
     text-decoration: none;
 }
 
