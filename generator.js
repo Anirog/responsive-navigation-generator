@@ -14,18 +14,19 @@ async function fetchBaseComponent() {
 const config = {
   profileImgUrl: '',
   profileImgAlt: '',
-  profileImgSize: 'medium',
+  profileImgSize: 'small',
   links: [
     { text: 'Home', url: '#' },
-    { text: 'About', url: '#' }
+    { text: 'About', url: '#' },
+    { text: 'Contact', url: '#' }
   ],
   navAlign: 'left',
   hamburger: true,
   sticky: false,
   breakpoint: 768,
-  headerBg: '#22223b',
-  linkColor: '#4a4e69',
-  linkHover: '#9a8c98',
+  headerBg: '#202124',
+  linkColor: '#FFFFFF',
+  linkHover: '#CCCCCC',
   fontFamily: 'system-ui',
   fontSize: 16
 };
@@ -159,21 +160,35 @@ async function generateNavCode() {
     `<nav class="nav-links">${config.links.map(l => `<a href="${l.url}">${l.text}</a>`).join('')}</nav>`
   );
   // Alignment
-  navCss += `\n.nav-header { justify-content: ${config.navAlign === 'center' ? 'center' : config.navAlign === 'right' ? 'flex-end' : 'flex-start'}; }`;
+  let justify;
+  switch (config.navAlign) {
+    case 'center':
+      justify = 'center';
+      break;
+    case 'right':
+      justify = 'flex-end';
+      break;
+    case 'space-between':
+      justify = 'space-between';
+      break;
+    default:
+      justify = 'flex-start';
+  }
+  navCss += `\n.header-container { justify-content: ${justify}; }`;
   // Hamburger
   if (!config.hamburger) navCss += `\n.hamburger { display: none !important; }`;
   // Sticky
-  if (config.sticky) navCss += `\n.nav-header { position: sticky; top: 0; }`;
+  if (config.sticky) navCss += `\n.header-container { position: sticky; top: 0; }`;
   // Breakpoint (use user value for both mobile and desktop, no overlap)
   const bp = config.breakpoint;
   navCss += `\n@media (max-width: ${bp - 1}px) { .nav-links { display: none; } .hamburger { display: block; } }`;
   navCss += `\n@media (min-width: ${bp}px) { .nav-links { display: flex; } .hamburger { display: none; } }`;
   // Colours
-  navCss += `\n.nav-header { background: ${config.headerBg}; }`;
+  navCss += `\n.header-container { background: ${config.headerBg}; }`;
   navCss += `\n.nav-links a { color: ${config.linkColor}; }`;
   navCss += `\n.nav-links a:hover, .nav-links a:focus { color: ${config.linkHover}; }`;
   // Typography
-  navCss += `\n.nav-header, .nav-links a { font-family: ${config.fontFamily}; font-size: ${config.fontSize}px; }`;
+  navCss += `\n.header-container, .nav-links a { font-family: ${config.fontFamily}; font-size: ${config.fontSize}px; }`;
   return { navHtml, navCss };
 }
 
